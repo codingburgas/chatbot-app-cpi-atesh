@@ -11,8 +11,9 @@ import datetime
 import pytz
 
 router = APIRouter()
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+env = "\n".join(os.getenv("RSA_PRIVATE_KEY").split("<end>"))
 
 @router.post("/login", tags=["auth"])
 async def login(user_im: UserIM):
@@ -23,8 +24,8 @@ async def login(user_im: UserIM):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
-    token = jwt.encode({"iss": user["username"], "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(hours=3)}, os.getenv("RSA_PRIVATE_KEY"), algorithm="RS256") # type: ignore
+
+    token = jwt.encode({"iss": user["username"], "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(hours=3)}, env, algorithm="RS256") # type: ignore
     
     return Token(access_token=token, token_type="bearer")
 
@@ -38,7 +39,7 @@ async def token(form_data: OAuth2PasswordRequestForm = Depends()):
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    token = jwt.encode({"iss": user["username"], "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(hours=3)}, os.getenv("RSA_PRIVATE_KEY"), algorithm="RS256")
+    token = jwt.encode({"iss": user["username"], "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(hours=3)}, env, algorithm="RS256")
     
     return Token(access_token=token, token_type="bearer")
 

@@ -3,6 +3,12 @@ The campus for the new school is that of the former Professional Technical Schoo
 In the first year 104 students were enrolled in the 8th grade. They will study in the professional field of “Computer Sciences”, job title “Programmer”, specialization in „Software Maintenance“ and “Applied Programming”. Students will enroll after finishing their 7th grade studies, and study at the school for 5 years.
 All contemporary programming languages will be taught at the school: Java, C#, C++, JavaScript, „.NET“.
 <end>
+Hello dear students and parents,
+
+My name is Dimitrina Todorova and I am the director of the newest school in Burgas - the Professional High School for Computer Programming and Innovation, which will open its doors on September 1 this year.
+
+I love new technology. All my many years of experience as a teacher of mathematics, informatics and information technology are proof of this affection of mine.
+<end>
 
 specialty "Software Assurance"
 Solving the diverse and complex tasks in computer systems is accomplished by repeatedly executing multiple program codes. Such a series of systematized and logically related codes is called a program. To realize all the capabilities of computer systems, complex programs are needed that reduce complex information tasks to a finite number of simple commands and instructions intended for end users. This part of the computer package is called software. Its importance for the development of CS /computer systems/ is enormous. Currently, the development of software for CS is a powerful industry - a software industry that even surpasses the hardware industry in terms of revenue and employment.

@@ -4,11 +4,15 @@ from langchain_community.embeddings.sentence_transformer import SentenceTransfor
 from langchain_community.vectorstores import Chroma
 from langchain_text_splitters import CharacterTextSplitter
 from langchain import hub
-from langchain_core.runnables import RunnablePassthrough
-# from langchain_community.document_loaders import WebBaseLoader
+from langchain_core.runnables import RunnablePassthrough, RunnableSequence
+from langchain_core.output_parsers import StrOutputParser
+from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain_community.document_loaders import TextLoader
 import warnings
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
@@ -16,9 +20,9 @@ def format_docs(docs):
 warnings.filterwarnings("ignore")
 logging.getLogger().setLevel(logging.ERROR)
 
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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" # replace "xxx" with your Hugging Face API token
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HF_TOKEN")
 
-repo_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+repo_id = "google/gemma-2b"
 
 llm = HuggingFaceEndpoint(repo_id=repo_id)
 
@@ -52,12 +56,16 @@ embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2"
 db = Chroma.from_documents(docs, embedding_function)
 
 retriever = db.as_retriever(search_type="mmr", search_kwargs={'k': 4, 'fetch_k': 20})
-prompt = hub.pull("rlm/rag-prompt")
+# prompt = hub.pull("rlm/rag-prompt-llama")
 
 print("\u001b[1;32mLoaded retriever, prompt and db successfully!\u001b[0m")
 
-rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-)
+model = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+
+# result = qa({"query": "Who is the director of VSCPI?"})
+# result_str: str = result["result"]
+
+# first_result = result_str.strip().split("\n")[0]
+
+# print(f"\u001b[1;34m{result}\u001b[0m")
+# print(first_result)

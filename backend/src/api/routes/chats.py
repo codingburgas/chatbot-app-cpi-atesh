@@ -11,10 +11,12 @@ import models.chat_im
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 router = APIRouter()
 
+public_key = "\n".join(os.getenv("RSA_PUBLIC_KEY").split("<end>"))
+
 @router.get("/get/chats", tags=["chats"])
 async def get_user_chats(token: Annotated[str, Depends(oauth2_scheme)]):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         chats = db.db_chats.get_chats(username)
@@ -31,7 +33,7 @@ async def get_user_chats(token: Annotated[str, Depends(oauth2_scheme)]):
 @router.post("/create/chat", tags=["chats"])
 async def create_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat: models.chat_im.ChatIM):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         new_chat = db.db_chats.create_chat(username, chat)
@@ -44,7 +46,7 @@ async def create_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat: 
 @router.get("/get/chat/{chat_id}", tags=["chats"])
 async def get_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat_id: int):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         chat = db.db_chats.get_chat(username, chat_id)
@@ -68,7 +70,7 @@ async def get_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat_id: 
 @router.delete("/delete/chat/{chat_id}", tags=["chats"])
 async def delete_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat_id: int):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         db.db_chats.delete_chat(username, chat_id)
@@ -79,7 +81,7 @@ async def delete_user_chat(token: Annotated[str, Depends(oauth2_scheme)], chat_i
 @router.delete("/delete/chats", tags=["chats"])
 async def delete_all_user_chats(token: Annotated[str, Depends(oauth2_scheme)]):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         db.db_chats.delete_all_chats(username)
@@ -90,7 +92,7 @@ async def delete_all_user_chats(token: Annotated[str, Depends(oauth2_scheme)]):
 @router.get("/search/chats", tags=["chats"])
 async def search_all_user_chats(token: Annotated[str, Depends(oauth2_scheme)], query: str = ""):
     try:
-        payload = jwt.decode(token, os.getenv("RSA_PUBLIC_KEY"), algorithms=["RS256"])
+        payload = jwt.decode(token, public_key, algorithms=["RS256"])
         username: str = payload["iss"]
 
         chats = db.db_chats.search_all_chats(username, query)
