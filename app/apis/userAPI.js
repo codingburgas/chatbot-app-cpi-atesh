@@ -1,12 +1,48 @@
-import { axiosConfig } from "./config/axiosConfig";
-import axios from "axios";
-
+import  axiosInstance from "./config/axiosConfig";
+import storage from "./config/storage";
 
 export const userAPI = {
     signUp: async (data) => {
-        return (await axios.post('http://127.0.0.1:8000/register', data));
+        return (await axiosInstance.post('/register', data));
     },
     signIn: async (data) => {
-        return (await axios.post('http://127.0.0.1:8000/login', data, axiosConfig)).data;
+        try {
+            console.log(data);
+
+            let response;
+            try {
+                response = await axiosInstance.post('/login', {
+                    username: data.username,
+                    password: data.password,
+                });
+                console.log("Response: ", response);
+            } catch (error) {
+                console.error("Error during API call: ", error);
+                throw new Error("Login API call failed");
+            }
+
+            if (!response.data || !response.data.access_token) {
+                throw new Error("Access token not found in the response");
+            }
+
+            const accessTokenExpiry = new Date().getTime() + (3 * 60 * 60 * 1000);
+            try {
+                await storage.save({
+                    key: 'accessToken',
+                    data: response.data.access_token,
+                    expires: accessTokenExpiry,
+                });
+                
+                const token = await storage.load({ key: 'accessToken' })
+                console.log("Loaded token", token)
+                
+            } catch (error) {
+                console.error("Error saving access token: ", error);
+                throw new Error("Failed to save access token");
+            }
+
+        } catch (error) {
+            console.error("Login error: ", error);
+        }
     },
 };
