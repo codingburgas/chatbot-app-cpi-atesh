@@ -7,7 +7,7 @@ export const userAPI = {
     },
     signIn: async (data) => {
         try {
-            console.log(data);
+            
 
             let response;
             try {
@@ -15,7 +15,7 @@ export const userAPI = {
                     username: data.username,
                     password: data.password,
                 });
-                console.log("Response: ", response);
+                
             } catch (error) {
                 console.error("Error during API call: ", error);
                 throw new Error("Login API call failed");
@@ -34,7 +34,7 @@ export const userAPI = {
                 });
                 
                 const token = await storage.load({ key: 'accessToken' })
-                console.log("Loaded token", token)
+                
                 
             } catch (error) {
                 console.error("Error saving access token: ", error);
@@ -45,4 +45,7 @@ export const userAPI = {
             console.error("Login error: ", error);
         }
     },
+    getUser: async () => {
+        return (await axiosInstance.get('/get/user', axiosInstance));
+    }
 };
