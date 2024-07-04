@@ -62,7 +62,7 @@ print("\u001b[1;32mLoaded retriever, prompt and db successfully!\u001b[0m")
 
 model = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
-# result = qa({"query": "Who is the director of VSCPI?"})
+# result = model({"query": "What is the average score in Bulgarian and Literature?"})
 # result_str: str = result["result"]
 
 # first_result = result_str.strip().split("\n")[0]
