@@ -21,8 +21,11 @@ export default function SignUp({ navigation }) {
       password: password,
     };
 
-    userAPI.signUp(data);
-    navigation.navigate("Home");
+    userAPI.signUp(data).then(() => {
+      navigation.navigate("SignIn");
+    }).catch((err) => {
+      console.log(err)
+    });
   };
 
   const checkIsEmptyTextInput = () => {

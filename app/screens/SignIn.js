@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+
 import { LinearGradient } from "expo-linear-gradient";
 import {
   StyleSheet,
@@ -6,8 +7,7 @@ import {
   Platform,
   StatusBar,
   Text,
-  TextInput,
-  View
+  TextInput
 } from "react-native";
 import { userAPI } from "../apis/userAPI";
 
@@ -22,11 +22,8 @@ export default function SignIn({ navigation }) {
       password: password
   }
 
-    userAPI.signIn(data).then((data) => {
-        localStorage.setItem('token', data.access_token)    
-    })
+    userAPI.signIn(data)
     navigation.navigate("Home")
-    console.log(data)
   }
 
   const checkIsEmptyTextInput  = () =>{
