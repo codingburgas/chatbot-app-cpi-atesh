@@ -57,7 +57,7 @@ export default function SignUp() {
                     </div>
                 </div>
 
-                <div className='w-1/2 bg-[#1E1E1E] max-lg:w-full max-lg:w-full max-lg:pb-8 overflow-x-hidden relative z-20 flex flex-col justify-start items-center'>
+                <div className='w-1/2 bg-[#1E1E1E] max-lg:w-full max-lg:pb-8 overflow-x-hidden relative z-20 flex flex-col justify-start items-center'>
 
                     <div className='mt-[25%] flex flex-col justify-center items-center text-white gap-14'>
                         <h1 className='text-6xl'>Register</h1> 
