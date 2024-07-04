@@ -19,6 +19,7 @@ import { messagesAPI, Message } from "@/apis/messagesAPI";
 import { UserType } from "@/types/user.type";
 import { userAPI } from "@/apis/userAPI";
 import Profile from "@/components/Profile";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Chat() {
     const [user, setUser] = useState<UserType>();
@@ -33,6 +34,8 @@ export default function Chat() {
 
     const [selectedChat, setSelectedChat] = useState<ChatType>()
     const formRef = useRef<HTMLFormElement>(null);
+
+    const [isWaiting, setIsWaiting] = useState<boolean>(false)
 
     useEffect(() => {
         userAPI.getUser().then((data) => {
@@ -84,22 +87,32 @@ export default function Chat() {
             return;
         }
 
+        
+        
         if(!chatIdSelected) {
+            
             chatAPI.createNewChat(message.substring(0, 20)).then((data) => {
                 chatAPI.getChatHystory().then((data) => {
                     setChatHistory(data.data.reverse());
                 });
 
                 setChatIdSelected(data.data.id)
-
+                
                 const newMessage: Message = {
                     "chat_id": data.data.id,
                     "content": message,
                     "author": "USER",
                 }
+                
+                setSelectedChat({
+                        "name": data.data.name,
+                        "messages": [{author: "USER", content: message}]
+                    })
 
+                setIsWaiting(true)
                 messagesAPI.createMessage(newMessage).then(() => {
                     chatAPI.getChat(data.data.id).then((data) => {
+                        setIsWaiting(false)
                         setSelectedChat(data.data)
                     })
                 });
@@ -114,10 +127,19 @@ export default function Chat() {
             "author": "USER",
         }
 
+        if(selectedChat) {
+            setSelectedChat({
+                    "name": selectedChat["name"],
+                    "messages": [...selectedChat["messages"], {author: "USER", content: message}]
+                })
+        }
+
+        setIsWaiting(true)
         messagesAPI.createMessage(newMessage).then(() => {
             if( !chatIdSelected ) return
 
             chatAPI.getChat(chatIdSelected).then((data) => {
+                setIsWaiting(false)
                 setSelectedChat(data.data)
             })
         });
@@ -226,6 +248,14 @@ export default function Chat() {
                             })
                         }
 
+                        {isWaiting && <div className="flex gap-2 ml-[3px]">
+                            <Skeleton className="w-12 h-12 rounded-full" />
+
+                            <div className="flex flex-col w-full gap-3">
+                                <Skeleton className="w-1/2 h-4 rounded-full" />
+                                <Skeleton className="w-2/3 h-4 rounded-full" />
+                            </div>
+                        </div>}
                     </div>
 
                     <form

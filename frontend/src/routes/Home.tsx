@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import laptopMockup from "/laptop-example.png"
-import phoneMockup from "/phone-example.png"
+// import laptopMockup from "/laptop-example.png"
+// import phoneMockup from "/phone-example.png"
+import computerMockup from "/computer-mockup.png"
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 
@@ -33,8 +34,9 @@ export default function Home() {
             </div>
 
             <div className="flex mt-[40px] items-end gap-10 justify-center max-lg:flex-col-reverse max-lg:items-center mb-[40px]">
-               <img width="250px" src={phoneMockup} alt="" /> 
-               <img width="1000px" src={laptopMockup} alt="" /> 
+               {/* <img width="250px" src={phoneMockup} alt="" />  */}
+               {/* <img width="1000px" src={laptopMockup} alt="" />  */}
+               <img width="1000px" src={computerMockup} alt="" /> 
             </div>
         </>
     );
