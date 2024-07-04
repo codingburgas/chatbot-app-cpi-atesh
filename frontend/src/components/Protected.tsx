@@ -10,6 +10,7 @@ export default function Protected({children}: any) {
             setIsLoggedIn(true)
         }).catch(() => {
             setIsLoggedIn(false)
+            localStorage.removeItem('token')
         })
     }, [])
     
