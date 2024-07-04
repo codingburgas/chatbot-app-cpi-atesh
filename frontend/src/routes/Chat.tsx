@@ -240,6 +240,7 @@ export default function Chat() {
                 </div>
                 
                 <div className="w-4/5 max-lg:w-full min-h-[80%] items-center flex flex-col m-5 relative rounded-2xl text-white">
+                    <h1 className="text-center text-gray-900 text-2xl font-thin max-lg:mt-4">WORK IN PROGRESS THIS IS JUST AN ALPHA AND MAY PROVIDE INACCURATE INFORMATION</h1>
 
                     <div className={`text-white mb-[25%] w-full min-h-full flex flex-col p-4 pt-10 lg:p-16 gap-6`}>
                         {

@@ -37,8 +37,8 @@ export default function SignIn() {
 
     return (
         <>
-            <div className="min-w-screen min-h-screen flex max-lg:flex-col-reverse">
-                <div className="w-1/2 lg:min-h-full max-lg:w-full max-lg:min-h-[50vh] lg:pt-36 lg:pl-24 bg-radial-gradient-home before:content-[''] before:w-full before:h-full before:bg-[#FFFFFF40] before:absolute before:top-0 before:left-0 before:backdrop-blur-[128px]">
+            <div className="min-w-screen min-h-screen flex">
+                <div className="w-1/2 lg:min-h-full max-lg:w-full max-lg:hidden max-lg:min-h-[50vh] lg:pt-36 lg:pl-24 bg-radial-gradient-home before:content-[''] before:w-full before:h-full before:bg-[#FFFFFF40] before:absolute before:top-0 before:left-0 before:backdrop-blur-[128px]">
                     <div className='flex flex-col text-white z-2 relative gap-4 justify-center items-center font-black w-fit'>
                     {
                         //<h1 className='text-6xl'>Learn & Discover</h1>
@@ -51,7 +51,7 @@ export default function SignIn() {
                     </div>
                 </div>
 
-                <div className='lg:w-1/2 max-lg:pb-8 bg-[#1E1E1E] overflow-x-hidden relative z-20 flex flex-col justify-start items-center'>
+                <div className='lg:w-1/2 max-lg:w-full max-lg:pb-8 bg-[#1E1E1E] overflow-x-hidden relative z-20 flex flex-col justify-start items-center'>
 
                     <div className='mt-[25%] flex flex-col justify-center items-center text-white gap-14'>
                         <h1 className='text-6xl'>Log in</h1> 
