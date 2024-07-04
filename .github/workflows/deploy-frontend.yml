@@ -33,7 +33,7 @@ jobs:
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
         env:
-          VITE_BACKEND_URL: http://localhost:8000
+          VITE_BACKEND_URL: http://atesh.polandcentral.cloudapp.azure.com:8000
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
