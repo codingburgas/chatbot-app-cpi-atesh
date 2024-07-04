@@ -12,58 +12,73 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { chatAPI } from "../apis/chatAPI";
 
-const DATA = [
-  {
-    id: "1",
-    title: "Chat with ai",
-  },
-];
-
-const Item = ({ title }) => {
+const Item = ({ title, onpress, handleDeleteChat, isSelected, ondelete }) => {
   return (
-    <View style={styles.example}>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        //isSelected ? styles.selected : styles.unselected,
+      ]}
+      onPress={onpress}
+    >
+      <View style={styles.iconContainer}>
+        <Icon name="message-text-outline" size={24} color="#333" />
+      </View>
       <Text style={styles.chatTitle}>{title}</Text>
-      <Pressable style={styles.deleteBtn}></Pressable>
-    </View>
+
+      <TouchableOpacity
+        style={styles.deleteBtn}
+        onPress={ondelete}
+      ></TouchableOpacity>
+    </TouchableOpacity>
   );
 };
 
 export default function Home({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [items, setItems] = useState(DATA);
+  const [chatHistory, setChatHistory] = useState([]);
   const [newChatName, setNewChatName] = useState("");
   const [chatIdSelected, setChatIdSelected] = useState();
 
-  const createItem = () => {
-    setItems([...items]);
-  };
-  const handelDelete = () => {};
+  useEffect(() => {
+    chatAPI.getChatHystory().then((data) => {
+      setChatHistory(data.data.reverse())
+    })
+  }, [])
 
   const handleNewChat = () => {
     chatAPI
       .createNewChat(newChatName)
       .then((data) => {
-        chatAPI.getChatHystory().then((data) => {
-          setChatHistory(data.data.reverse());
+        chatAPI.getChatHystory().then((data2) => {
+          setChatHistory(data2.data.reverse());
         });
-        createItem();
-        navigation.navigate("ChatRoom")
+        
+        navigation.navigate("ChatRoom", {id: data.data.id});
       })
+
       .catch((err) => {
         console.log(err);
       });
 
-    setNewChatName("");
     setModalVisible(false);
   };
-  useEffect(() => {
-    chatAPI.getChat(chatIdSelected).then((data) => {
-      setSelectedChat(data.data);
+
+  const handleDeleteChat = (id) => {
+    chatAPI.deleteChat(id).then(() => {
+      chatAPI.getChatHystory().then((data) => {
+        setChatHistory(data.data.reverse());
+
+        if (chatIdSelected === id) {
+          setChatIdSelected(undefined);
+          setSelectedChat(undefined);
+        }
+      });
     });
-  }, [chatIdSelected]);
+  };
 
   return (
     <LinearGradient colors={["#BDC0C6", "#7678ED"]} style={styles.screen}>
@@ -89,7 +104,6 @@ export default function Home({ navigation }) {
               onPress={() => {
                 setModalVisible(!modalVisible);
                 handleNewChat();
-                
               }}
             >
               <Text style={styles.btnText}>Create Chat!</Text>
@@ -110,9 +124,18 @@ export default function Home({ navigation }) {
       </TouchableOpacity>
       <View style={styles.chatContainer}>
         <FlatList
-          data={items}
-          renderItem={({ item }) => <Item title={item.title} />}
+          data={chatHistory}
+          renderItem={({ item }) => (
+            <Item
+            key={item.id}
+            ondelete={() => handleDeleteChat(item.id)}
+            onpress={() => {setChatIdSelected(item.id); navigation.navigate("ChatRoom", {id: item.id})}}
+            title={item.name}
+            selected={item.id === chatIdSelected}
+          />
+          )}
           keyExtractor={(item) => item.id}
+          
           contentContainerStyle={styles.chatRooms}
         />
       </View>
@@ -203,16 +226,47 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  chatTitle: {
-    color: "white",
-    marginLeft: 10,
-    fontSize: 25,
-  },
   deleteBtn: {
     height: 40,
     width: 40,
     backgroundColor: "red",
     borderRadius: 5,
     marginRight: 20,
+  },
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: "#eee",
+    marginTop: 10,
+    width: 250,
+  },
+  selected: {
+    backgroundColor: "#eee", // Set background color for selected state
+  },
+  unselected: {
+    backgroundColor: "#fff",
+  },
+  iconContainer: {
+    marginRight: 16,
+  },
+  chatTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    flex: 1,
+    color: "black", // Allow title to expand
+  },
+  deleteButton: {
+    marginLeft: 16, // Adjust spacing for delete button
+  },
+  cardStyle: {
+    margin: 10,
+    padding: 10,
+    width: 300,
+    marginTop: 30,
+  },
+  infoCards: {
+    fontSize: 20,
   },
 });

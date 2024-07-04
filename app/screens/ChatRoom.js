@@ -12,25 +12,21 @@ import {
   ScrollView,
   FlatList,
   SectionList,
+  Image,
 } from "react-native";
+import { chatAPI } from "../apis/chatAPI";
+import { messagesAPI } from "../apis/mesagesAPI";
+import { useState, useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
+import { userAPI } from "../apis/userAPI";
 
-const DATA = [
-  {
-    id: "1",
-    title: "Chat with ai",
-  },
-  {
-    id: "2",
-    title: "Chat with ai",
-  },
-  
-];
-
-const Item = ({ title }) => {
+const Item = ({ title, username, author }) => {
   return (
     <View style={styles.example}>
       <View style={styles.image}>
-        <Text>ISD</Text>
+        <Text>
+          {author === "AI" ? author : username.substring(0, 2).toUpperCase()}
+        </Text>
       </View>
       <View style={styles.mesage}>
         <Text style={styles.mesageText}>{title}</Text>
@@ -40,24 +36,72 @@ const Item = ({ title }) => {
 };
 
 export default function ChatRoom() {
+  const route = useRoute();
+
+  let [chatMessages, setChatMessages] = useState([]);
+  let [username, setUserName] = useState("");
+  let [message, setMessage] = useState("");
+
+  let id = route.params.id;
+
+  useEffect(() => {
+    chatAPI.getChat(id).then((data) => {
+      setChatMessages(() => data.data.messages);
+    });
+
+    userAPI.getUser().then((data) => {
+      setUserName(data.data.username);
+    });
+  }, []);
+
+  const handleNewMessage = () => {
+    if (!message || message === "") {
+      return;
+    }
+
+    const newMessage = {
+      chat_id: id,
+      content: message,
+      author: "USER",
+    };
+
+    messagesAPI.createMessage(newMessage).then(() => {
+      chatAPI.getChat(id).then((data) => {
+        setChatMessages(data.data);
+      });
+    });
+
+    setMessage("");
+  };
   return (
-    <LinearGradient colors={['#BDC0C6', '#7678ED']} style={styles.screen}>
-      
-      <View style={styles.messagesContainer}>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <Item title={item.title} />}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-      <View style={styles.inputField}>
-        <TextInput
-          style={styles.inputMesage}
-          placeholder="Enter text!"
-          placeholderTextColor={"black"}
-        />
-        <Pressable style={styles.sendBtn}></Pressable>
-      </View>
+    <LinearGradient colors={["#BDC0C6", "#7678ED"]} style={styles.screen}>
+
+        <View style={styles.messagesContainer}>
+          <FlatList
+            data={chatMessages}
+            renderItem={({ item }) => (
+              <Item
+                title={item.content}
+                username={username}
+                author={item.author}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+        <View style={styles.inputField}>
+          <TextInput
+            style={styles.inputMesage}
+            placeholder="Enter text!"
+            placeholderTextColor={"black"}
+            onChangeText={setMessage}
+          />
+          <TouchableOpacity
+            style={styles.sendBtn}
+            onPress={handleNewMessage}
+          ></TouchableOpacity>
+        </View>
+
     </LinearGradient>
   );
 }
@@ -132,5 +176,9 @@ const styles = StyleSheet.create({
     height: 670,
     width: 350,
     marginBottom: 50,
+
   },
+  container:{
+    flex:1
+  }
 });

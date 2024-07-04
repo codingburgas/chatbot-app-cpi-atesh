@@ -11,6 +11,12 @@ export const chatAPI = {
     getChat: async (id) => {
         return (await axiosInstance.get(`/get/chat/${id}`, axiosInstance));
     },
+    deleteAllChats: async () => {
+        return (await axiosInstance.delete('/delete/chats', axiosInstance));
+    },
+    deleteChat: async (id) => {
+        return (await axiosInstance.delete(`/delete/chat/${id}`, axiosInstance));
+    },
     
 };
 

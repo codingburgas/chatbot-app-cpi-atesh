@@ -23,6 +23,7 @@ export default function SignIn({ navigation }) {
   }
 
     userAPI.signIn(data)
+    
     navigation.navigate("Home")
   }
 
