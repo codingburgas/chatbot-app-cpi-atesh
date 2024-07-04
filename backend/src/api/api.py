@@ -2,6 +2,8 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import auth, chats, messages, users
+import ssl
+import uvicorn
 
 app = FastAPI()
 
