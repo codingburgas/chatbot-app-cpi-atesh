@@ -111,8 +111,8 @@ export default function Chat() {
 
                 setIsWaiting(true)
                 messagesAPI.createMessage(newMessage).then(() => {
+                    setIsWaiting(false)
                     chatAPI.getChat(data.data.id).then((data) => {
-                        setIsWaiting(false)
                         setSelectedChat(data.data)
                     })
                 });
@@ -138,8 +138,8 @@ export default function Chat() {
         messagesAPI.createMessage(newMessage).then(() => {
             if( !chatIdSelected ) return
 
+            setIsWaiting(false)
             chatAPI.getChat(chatIdSelected).then((data) => {
-                setIsWaiting(false)
                 setSelectedChat(data.data)
             })
         });

@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { userAPI, SignUpData } from '@/apis/userAPI'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function SignIn() {
     const [userNameVal, setUserName] = useState<string>('')
     const [passwordVal, setPassword] = useState<string>('')
@@ -27,6 +30,8 @@ export default function SignIn() {
         userAPI.signIn(data).then((data) => {
             localStorage.setItem('token', data.access_token)    
             window.location.href = '/chat'
+        }).catch((err) => {
+            toast.error(err.response.data.detail)
         })
     }
 
@@ -70,6 +75,8 @@ export default function SignIn() {
                     </div>
                 </div>
             </div>
+
+            <ToastContainer />
         </>
     )
 }
