@@ -25,7 +25,7 @@ export default function SignUp() {
 
         if(passwordVal != confirmPassword)
         {
-            toast('Passwords do not match')
+            toast.error('Passwords do not match')
             return
         }
 
@@ -37,7 +37,7 @@ export default function SignUp() {
         userAPI.signUp(data).then(() => {
             navigator('/signin')
         }).catch((err) => {
-            toast(err.response.data.detail)
+            toast.error(err.response.data.detail)
         })
     }
 
