@@ -1,0 +1,32 @@
+One more new educational institution opened its doors this year in Burgas. The Vocational School of Coding and Innovations had its start in the 2018/2019 school year.
+The campus for the new school is that of the former Professional Technical School in the “Meden Rudnik” Housing Complex of Burgas. To meet the requirements all the buildings, facilities and the big dorm which is part of the complex have been completely renovated.
+In the first year 104 students were enrolled in the 8th grade. They will study in the professional field of “Computer Sciences”, job title “Programmer”, specialization in „Software Maintenance“ and “Applied Programming”. Students will enroll after finishing their 7th grade studies, and study at the school for 5 years.
+All contemporary programming languages will be taught at the school: Java, C#, C++, JavaScript, „.NET“.
+<end>
+Hello dear students and parents,
+
+My name is Dimitrina Todorova and I am the director of the newest school in Burgas - the Professional High School for Computer Programming and Innovation, which will open its doors on September 1 this year.
+
+I love new technology. All my many years of experience as a teacher of mathematics, informatics and information technology are proof of this affection of mine.
+<end>
+
+specialty "Software Assurance"
+Solving the diverse and complex tasks in computer systems is accomplished by repeatedly executing multiple program codes. Such a series of systematized and logically related codes is called a program. To realize all the capabilities of computer systems, complex programs are needed that reduce complex information tasks to a finite number of simple commands and instructions intended for end users. This part of the computer package is called software. Its importance for the development of CS /computer systems/ is enormous. Currently, the development of software for CS is a powerful industry - a software industry that even surpasses the hardware industry in terms of revenue and employment.
+Students graduate with the profession of "Programmer" after passing the State exam in the specialty.
+
+<end>
+specialty "Applied Programming"
+The purpose of the specialty is to enable students to acquire knowledge and skills that will allow them to work as programmers - developers of application programs. The software development market requires the implementation of individual projects intended for companies or a typed group of users. This necessitates the development of application programs that load on all kinds of devices, and this industry is among the most dynamically developing in the sector.
+Graduates of this major will understand fundamental areas of computer technology and information systems, computers, networks and databases, and demonstrate practical skills in managing these technologies; to know new technologies and their impact on business strategies; communicate effectively with software engineers, system analysts, hardware engineers, communications engineers and end users to provide appropriate solutions to business problems; demonstrate skills to work effectively as a team member and as a project manager.
+
+<end>
+specialty "Artificial Intelligence Programming"
+AI engineers use many programming languages ​​in their work, but can identify a few that most often meet the needs of the project they are working on.
+Before we look at programming languages, we need to define what artificial intelligence means. Nowadays, it becomes a big part of our life with the advantages it has. It makes our lives easier and the trends are to continue. Artificial intelligence is being successfully integrated not only into the everyday life of the average user, but also into businesses. Its development would not have been possible without significant improvements in programming languages. The need for experienced professionals, as well as for new or improved programming languages, is increasing many times compared to a few years ago. There is no one programming language that is universally valid for the development of artificial intelligence.
+Students will start their learning with Python. The language is defined as an experiment in how much freedom programmers need. If they are given too much, they risk that no one will be able to read someone else's code, and if it is too small, free expression is threatened. In Python, the two conditions balance. It is flexible and also platform independent. It is characterized by short and clear codes instead of long and trivial ones. It is second in popularity among programming languages ​​not only for artificial intelligence, but also in general. Additionally, in the first high school stage, they will study JavaScript.
+
+<end>
+specialty "Robot Programming"
+Robot programming is the newest specialty approved for the admission plan in Bulgaria for the academic year 2022-2023. It is the result of the economic entities' demand for specialists who can manage partially robotic or fully robotic production and logistics systems. This major will include training in the first high school stage of the basic programming language C++ as well as Java Script, as well as familiarization with the basic concepts of microelectronic components. In-depth knowledge of mathematics and physics as well as spatial thinking is required. In the second high school stage, study disciplines related to mechanics, microelectronics, 3D design and printing, the Internet of Things, etc. will be included.
+
+<end>
