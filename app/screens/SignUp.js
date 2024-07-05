@@ -64,6 +64,7 @@ export default function SignUp({ navigation }) {
         placeholderTextColor={"#281D3A"}
         style={styles.inputs}
         onChangeText={setPassword}
+        secureTextEntry={true}
       />
       <TouchableOpacity
         style={styles.signupButton}

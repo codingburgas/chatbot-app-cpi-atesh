@@ -11,8 +11,7 @@ export default function Welcome({ navigation }) {
       style={styles.screen}>
       <View style={styles.infoBox}>
         <Text style={styles.title}>ATESH</Text>
-        <Text style={styles.info}> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled ndustry's standard </Text>
+        <Text style={styles.info}>The application helps parents and children who need to find information about our VSCPI high school. For this we provide an interactive way called Atesh. This is a chat bot that answers questions related to high school. The solution is presented in two ways - a web application and a mobile application.</Text>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.buttonText}>Get started</Text>
         </TouchableOpacity>
