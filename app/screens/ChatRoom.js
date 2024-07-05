@@ -13,12 +13,14 @@ import {
   FlatList,
   SectionList,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import { chatAPI } from "../apis/chatAPI";
 import { messagesAPI } from "../apis/mesagesAPI";
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { userAPI } from "../apis/userAPI";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Item = ({ title, username, author }) => {
   return (
@@ -28,8 +30,8 @@ const Item = ({ title, username, author }) => {
           {author === "AI" ? author : username.substring(0, 2).toUpperCase()}
         </Text>
       </View>
-      <View style={styles.mesage}>
-        <Text style={styles.mesageText}>{title}</Text>
+      <View style={styles.message}>
+        <Text style={styles.messageText}>{title}</Text>
       </View>
     </View>
   );
@@ -67,15 +69,23 @@ export default function ChatRoom() {
 
     messagesAPI.createMessage(newMessage).then(() => {
       chatAPI.getChat(id).then((data) => {
-        setChatMessages(data.data);
+        setChatMessages(data.data.messages);
       });
     });
 
     setMessage("");
   };
   return (
-    <LinearGradient colors={["#BDC0C6", "#7678ED"]} style={styles.screen}>
-
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <LinearGradient colors={["#BDC0C6", "#7678ED"]} style={styles.screen}>
+        <View style={styles.disclaimer}>
+          <Text style={styles.disclaimerInfo}>
+            The Version of the app is alpha! Answers can be wrong!{" "}
+          </Text>
+        </View>
         <View style={styles.messagesContainer}>
           <FlatList
             data={chatMessages}
@@ -95,14 +105,14 @@ export default function ChatRoom() {
             placeholder="Enter text!"
             placeholderTextColor={"black"}
             onChangeText={setMessage}
+            multiline
           />
-          <TouchableOpacity
-            style={styles.sendBtn}
-            onPress={handleNewMessage}
-          ></TouchableOpacity>
+          <TouchableOpacity style={styles.sendBtn} onPress={handleNewMessage}>
+            <Icon name="send" size={26} color="#C269C3" />
+          </TouchableOpacity>
         </View>
-
-    </LinearGradient>
+      </LinearGradient>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -124,14 +134,15 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 10,
     fontSize: 20,
-    overflow: "scroll",
   },
   sendBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "green",
+    backgroundColor: "#313338",
     marginLeft: 10,
     borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
   },
   chats: {
     height: 670,
@@ -156,29 +167,44 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  mesageText: {
+  messageText: {
     color: "black",
     fontSize: 18,
     marginLeft: 10,
+    marginBottom: 10,
   },
-  mesage: {
+  message: {
     backgroundColor: "rgba(217, 217, 217,  0.82)",
     marginLeft: 10,
     height: 50,
     width: 230,
     borderRadius: 10,
+    flex: 1,
   },
   messagesContainer: {
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    height: 670,
+
     width: 350,
     marginBottom: 50,
-
+    flex: 1, // Added to take up available space
+    paddingBottom: 10, 
   },
-  container:{
-    flex:1
-  }
+  container: {
+    flex: 1,
+  },
+  disclaimer: {
+    width: 350,
+    height: 60,
+    backgroundColor: "white",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  disclaimerInfo: {
+    fontSize: 18,
+    textAlign: "center",
+  },
 });

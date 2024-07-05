@@ -23,7 +23,7 @@ export default function SignIn({ navigation }) {
   }
 
     userAPI.signIn(data)
-    
+
     navigation.navigate("Home")
   }
 
@@ -48,12 +48,15 @@ export default function SignIn({ navigation }) {
         placeholderTextColor={"#281D3A"}
         style={styles.inputs}
         onChangeText={setUserName}
+        autoComplete="username"
       />
       <TextInput
         placeholder="Password"
         placeholderTextColor={"#281D3A"}
         style={styles.inputs}
         onChangeText={setPassword}
+        secureTextEntry={true}
+        autoComplete="password"
       />
       <TouchableOpacity style={styles.signinButton} onPress={checkIsEmptyTextInput}>
         <Text style={styles.signText}>Sign in!</Text>

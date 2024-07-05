@@ -32,7 +32,7 @@ const Item = ({ title, onpress, handleDeleteChat, isSelected, ondelete }) => {
       <TouchableOpacity
         style={styles.deleteBtn}
         onPress={ondelete}
-      ></TouchableOpacity>
+      ><Icon name="delete" size={24} color="#C269C3" /></TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -95,7 +95,7 @@ export default function Home({ navigation }) {
             <Text style={styles.infoBox}>Let's create Room!</Text>
             <TextInput
               placeholder="Enter a title!"
-              placeholderTextColor={"white"}
+              placeholderTextColor={"#3D219F"}
               style={styles.inputTitle}
               onChangeText={setNewChatName}
             />
@@ -120,7 +120,7 @@ export default function Home({ navigation }) {
         style={styles.addBtn}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.plusSymb}>+</Text>
+        <Icon name="plus" size={26} color="black" />
       </TouchableOpacity>
       <View style={styles.chatContainer}>
         <FlatList
@@ -172,10 +172,10 @@ const styles = StyleSheet.create({
     margin: 25,
     width: 150,
     height: 40,
-    backgroundColor: "black",
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 100,
-    color: "white",
+
   },
   modalScreen: {
     flex: 1,
@@ -189,11 +189,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 200,
     height: 200,
-    backgroundColor: "white",
+    backgroundColor: "#B0B8FF",
     borderRadius: 30,
   },
   createBtn: {
-    backgroundColor: "black",
+    backgroundColor: "white",
     width: 100,
     height: 30,
     borderRadius: 10,
@@ -201,10 +201,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btnText: {
-    color: "white",
+    color: "#3D219F",
   },
   infoBox: {
     fontSize: 22,
+    color:"#3D219F"
   },
   chatContainer: {
     alignItems: "center",
@@ -229,9 +230,11 @@ const styles = StyleSheet.create({
   deleteBtn: {
     height: 40,
     width: 40,
-    backgroundColor: "red",
+    backgroundColor: "#313338",
     borderRadius: 5,
-    marginRight: 20,
+    marginRight: 10,
+    justifyContent:"center",
+    alignItems:"center"
   },
   container: {
     flexDirection: "row",
